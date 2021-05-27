@@ -7,10 +7,10 @@
 --TCL
 --    commit, rollback
 
---TYPE  ¹®ÀÚ = char,varchar2, ¼ıÀÚ = number, ³¯Â¥ - data
+--TYPE  ë¬¸ì = char,varchar2, ìˆ«ì = number, ë‚ ì§œ - data
 create table emp01
 (
-    empno number(4),--type ÁöÁ¤ ¹®ÀÚÀÎÁö ¼ıÀÚÀÎÁö Áß°£ ¼öÁ¤ ¾î·Á¿ò number(±ÛÀÚ¼ö)
+    empno number(4),--type ì§€ì • ë¬¸ìì¸ì§€ ìˆ«ìì¸ì§€ ì¤‘ê°„ ìˆ˜ì • ì–´ë ¤ì›€ number(ê¸€ììˆ˜)
     ename varchar(20),
     sal number(7,2)
 );
@@ -40,7 +40,7 @@ select *
 from emp03;
 
 --emp05
---ºÎ¼­¹øÈ£°¡ 10¹øÀÎ »ç¿ø
+--ë¶€ì„œë²ˆí˜¸ê°€ 10ë²ˆì¸ ì‚¬ì›
 
 create table emp05
 as
@@ -52,7 +52,7 @@ desc emp05;
 select *
 from emp05;
 
---Å×ÀÌºí º¹»çÇÏÁö¸¸ ³»¿ëÀº »©°í ¾ç½Ä¸¸ º¹»ç where 1=0;
+--í…Œì´ë¸” ë³µì‚¬í•˜ì§€ë§Œ ë‚´ìš©ì€ ë¹¼ê³  ì–‘ì‹ë§Œ ë³µì‚¬ where 1=0;
 create table emp06
 as
 select *
@@ -61,23 +61,23 @@ where 1=0;
 
 select *
 from emp06;
---Ãß°¡
+--ì¶”ê°€
 alter table emp01
 add(job varchar2(9));
 desc emp01;
---¼öÁ¤
+--ìˆ˜ì •
 alter table emp01
 modify(job varchar2(30));
---»èÁ¦
+--ì‚­ì œ
 alter table emp01
 drop column job;
 
 select * from emp01;
---»èÁ¦
+--ì‚­ì œ
 truncate table emp01;
 desc emp01;
 
---µñ¼Å³Ê¸® ºä
+--ë”•ì…”ë„ˆë¦¬ ë·°
 --USER_xxxx
 --ALL_xxxx
 --DBA_xxxx
@@ -104,27 +104,27 @@ desc emp01;
 --insert
 
 insert into emp01(empno,ename,job,mgr,hiredate,sal,comm,deptno)
-values(1111,'È«±æµ¿','ÇĞ»ı',9999,'21/05/27',100,30,10);
+values(1111,'í™ê¸¸ë™','í•™ìƒ',9999,'21/05/27',100,30,10);
 
 select *
 from emp01;
 
 
 insert into emp01
-values(2222,'¹Ú±æµ¿','ÇĞ»ı',2222,'21/05/27',200,10,20);
+values(2222,'ë°•ê¸¸ë™','í•™ìƒ',2222,'21/05/27',200,10,20);
 
 
 insert into emp01(empno,ename,sal)
-values(3333,'°í±æµ¿',500);
+values(3333,'ê³ ê¸¸ë™',500);
 commit;
 desc dept;
 
 insert into dept (dname,loc)
-values('ÀÎ»çºÎ','¼­¿ï');
+values('ì¸ì‚¬ë¶€','ì„œìš¸');
 insert into dept
-values(13,'ÀÎ»çºÎ','¼­¿ï');
+values(13,'ì¸ì‚¬ë¶€','ì„œìš¸');
 
---update ¼öÁ¤
+--update ìˆ˜ì •
 update emp01
 set deptno = 40;
 
@@ -155,7 +155,7 @@ update emp01
 set sal = sal * 1.1,comm=10000
 where sal >= 3000;
 
---ÀÔ»çÀÏÀÌ 82³âµµÀÎ »ç¿øÀÇ ÀÔ»çÀÏÀ» ¿À´Ã³¯Â¥·Î ¼öÁ¤
+--ì…ì‚¬ì¼ì´ 82ë…„ë„ì¸ ì‚¬ì›ì˜ ì…ì‚¬ì¼ì„ ì˜¤ëŠ˜ë‚ ì§œë¡œ ìˆ˜ì •
 update emp01
 set hiredate = sysdate
 where hiredate like('82%');
@@ -169,7 +169,7 @@ delete from emp01
 where deptno = 30;
 commit;
 
-create table dept01--create tableÀÌ ¸¸µé¾îÁö¸é ÀÚµ¿ commit
+create table dept01--create tableì´ ë§Œë“¤ì–´ì§€ë©´ ìë™ commit
 as
 select * from dept;
 
@@ -181,20 +181,20 @@ drop table dept01;
 TRUNCATE table dept01;
 rollback;
 
---Á¦¾àÁ¶°Ç
---not null -> c         µ¥ÀÌÅÍ ÀÔ·Â ÇÊ¼ö
---unique -> u           °íÀ¯°ª Áßº¹ X,nullÁßº¹ Çã¿ë
---primary key -> p      unique,not null µÎ°³°¡ ÇÕÃÄÁü À¯ÀÏÅ°°ª
---foreign key -> r      Å×ÀÌºí°£ Á¦¾àÁ¶°Ç
---check -> c            ¹üÀ§¼³Á¤ Á¦¾à Á¶°Ç
+--ì œì•½ì¡°ê±´
+--not null -> c         ë°ì´í„° ì…ë ¥ í•„ìˆ˜
+--unique -> u           ê³ ìœ ê°’ ì¤‘ë³µ X,nullì¤‘ë³µ í—ˆìš©
+--primary key -> p      unique,not null ë‘ê°œê°€ í•©ì³ì§ ìœ ì¼í‚¤ê°’
+--foreign key -> r      í…Œì´ë¸”ê°„ ì œì•½ì¡°ê±´
+--check -> c            ë²”ìœ„ì„¤ì • ì œì•½ ì¡°ê±´
 
 desc user_constraints;
 
 select constraint_name,constraint_type,table_name
-from user_constraints;--Å×ÀÌºí Á¦¾àÁ¶°Ç È®ÀÎ
-                                                    --µÎ°³ °°ÀÌ »ç¿ë
+from user_constraints;--í…Œì´ë¸” ì œì•½ì¡°ê±´ í™•ì¸
+                                                    --ë‘ê°œ ê°™ì´ ì‚¬ìš©
 select *
-from user_cons_columns; --ÄÃ·³Á¤º¸ È®ÀÎ
+from user_cons_columns; --ì»¬ëŸ¼ì •ë³´ í™•ì¸
 
 drop table emp1;
 create table emp1
@@ -208,7 +208,7 @@ create table emp1
 desc emp1;
 
 insert into emp1
-values (111,'°í±æµ¿',null,'');--¸í½ÃÀû nullµ¥ÀÌÅÍ »ğÀÔ
+values (111,'ê³ ê¸¸ë™',null,'');--ëª…ì‹œì  nullë°ì´í„° ì‚½ì…
 
 select * from emp1;
 
@@ -229,13 +229,13 @@ create table emp03
 desc emp03;
 
 insert into emp03
-values (111,'°í±æµ¿','sales',10);
+values (111,'ê³ ê¸¸ë™','sales',10);
 
 insert into emp03
-values (111,'¹Ú±æµ¿','doctor',10);
+values (111,'ë°•ê¸¸ë™','doctor',10);
 
 insert into emp03
-values (null,'¹Úµ¿','doctor',10);
+values (null,'ë°•ë™','doctor',10);
 
 drop table emp04;
 
@@ -248,16 +248,16 @@ create table emp04
 );
 
 insert into emp04
-values (111,'¹Úµ¿','doctor',10);
+values (111,'ë°•ë™','doctor',10);
 insert into emp04
-values (123,'¹Úµ¿','doctor',20);
+values (123,'ë°•ë™','doctor',20);
 
 select constraint_name,constraint_type,table_name,r_constraint_name
 from user_constraints
-where table_name in ('DEPT','EMP07');--Å×ÀÌºí Á¦¾àÁ¶°Ç È®ÀÎ
-                                                    --µÎ°³ °°ÀÌ »ç¿ë
+where table_name in ('DEPT','EMP07');--í…Œì´ë¸” ì œì•½ì¡°ê±´ í™•ì¸
+                                                    --ë‘ê°œ ê°™ì´ ì‚¬ìš©
 select *
-from user_cons_columns; --ÄÃ·³Á¤º¸ È®ÀÎ
+from user_cons_columns; --ì»¬ëŸ¼ì •ë³´ í™•ì¸
 
 DROP TABLE EMP05;
 create table emp05
@@ -268,11 +268,11 @@ create table emp05
     deptno number(2)
 );
 insert into emp05
-values (111,'¹Úµ¿','doctor',10);
+values (111,'ë°•ë™','doctor',10);
 insert into emp05
-values (123,'¹Úµ¿','doctor',20);
+values (123,'ë°•ë™','doctor',20);
 insert into emp05
-values (NULL,'¹Úµ¿','doctor',20);
+values (NULL,'ë°•ë™','doctor',20);
 
 DESC EMP;
 
@@ -314,7 +314,7 @@ purge recyclebin;
 
 select * from tab;
 
---ºäÅ×ÀÌºí ½ÇÁ¦ ÀÖ´Â Å×ÀÌºí·Î ¸¸µë
+--ë·°í…Œì´ë¸” ì‹¤ì œ ìˆëŠ” í…Œì´ë¸”ë¡œ ë§Œë“¬
 CREATE TABLE DEPT_COPY
 AS
 SELECT * FROM DEPT;
@@ -323,10 +323,10 @@ CREATE TABLE EMP_COPY
 AS
 SELECT * FROM EMP;
 
---±ÇÇÑ ÁÖ´Â¹æ¹ı SYSTEM=>
+--ê¶Œí•œ ì£¼ëŠ”ë°©ë²• SYSTEM=>
 --GRANT CREATE VIEW
 --TO SCOTT;
-CREATE OR REPLACE VIEW EMP_VIEW30 --or replace ±âÁ¸¿¡ ¸¸µé¾îÁ®ÀÖ´Â ºä¿¡ ¼öÁ¤ÈÄ °°Àº ÀÌ¸§À¸·Î ºä¸¦ ¼öÁ¤ÇÒ¶§ ¾øÀ¸¸é ¾ÈµÊ
+CREATE OR REPLACE VIEW EMP_VIEW30 --or replace ê¸°ì¡´ì— ë§Œë“¤ì–´ì ¸ìˆëŠ” ë·°ì— ìˆ˜ì •í›„ ê°™ì€ ì´ë¦„ìœ¼ë¡œ ë·°ë¥¼ ìˆ˜ì •í• ë•Œ ì—†ìœ¼ë©´ ì•ˆë¨
 AS
 SELECT EMPNO,ENAME,SAL,DEPTNO,job
 FROM EMP_COPY
@@ -366,13 +366,50 @@ where table_name IN ('EMP01');
 
 INSERT INTO EMP01
 SELECT * FROM EMP01;
+
 SELECT*FROM EMP01;
 
 INSERT INTO EMP01(EMPNO,ENAME)
 VALUES(1111,'aaa');
 
 SELECT * FROM EMP01
-WHERE ENAME = 'aaa';
+WHERE empno = 7698;
+
+select index_name,table_name,column_name
+from user_ind_columns
+where table_name IN ('EMP01');
+
 
 CREATE INDEX EMP01_ENAME
 ON EMP01(ENAME);
+
+CREATE INDEX EMP01_EMPNO
+ON EMP01(EMPNO);
+
+select constraint_name,constraint_type,table_name,r_constraint_name
+from user_constraints
+where table_name in ('EMP01');--í…Œì´ë¸” ì œì•½ì¡°ê±´ í™•ì¸
+                                                    --ë‘ê°œ ê°™ì´ ì‚¬ìš©
+select *
+from user_ind_columns; --ì»¬ëŸ¼ì •ë³´ í™•ì¸
+
+select index_name,table_name,column_name
+from user_ind_columns
+where table_name IN ('EMP01');
+
+create table zzassu
+(
+    empno number(4) constraint zzassu_empno_pk PRIMARY KEY,
+    ename varchar2(20) constraint zzassu_ename_nn not null,
+    sal number(7,2) constraint zzassu_sal_ck check(sal between 500 and 5000),
+    gender varchar2(1) constraint zzassu_gender_ck check(gender in('M','F')),
+    create_date date default sysdate not null
+);
+desc zzassu;
+INSERT INTO zzassu
+VALUES(4546,'ASB',4000,'F',sysdate);
+
+select *
+from zzassu;
+
+drop table zzassu;
