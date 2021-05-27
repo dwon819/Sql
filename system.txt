@@ -1,0 +1,13 @@
+desc dba_tables;
+
+select table_name,owner
+from dba_tables;
+
+GRANT CREATE VIEW
+TO SCOTT;
+
+create user human
+IDENTIFIED by human;
+
+grant connect,resource
+to human;
